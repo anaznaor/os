@@ -10,4 +10,4 @@ struct gmp_pomocno {
 
 void inicijaliziraj_generator(struct gmp_pomocno *, unsigned);
 void obrisi_generator(struct gmp_pomocno *);
-uint64_t daj_novi_slucajan_prosti_broj (struct gmp_pomocno *)
+uint64_t daj_novi_slucajan_prosti_broj (struct gmp_pomocno *);

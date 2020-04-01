@@ -31,7 +31,7 @@ uint64_t zbrckanost(uint64_t x)
     //gledamo broj jedinica i nula u blokovima od 6 bita,zatim apsolutnu vrijednost razlike broja jedinica i nula usporedimo sa sljedecom apsolutnom vrijednosti sljedeceg prozora
     //broj jedinica spremamo u brojac1 i brojac2 a broj nula spremamo u br3 i br4 
 	//apsolutne vrijednosti njihovih razlika spremamo u varijable razlika 1 i razlika 2 koje nakon toga usporedujemo i ako su razlicite zbrckanost povecavamo za 1
-	uint64_t prozor, brojac1 = 0, brojac2 = 0,br3=0,br4=0, zbrckanost = 0;
+	uint64_t prozor,razlika1=0,razlika2=0, brojac1 = 0, brojac2 = 0,br3=0,br4=0, zbrckanost = 0;
 
     while(x != 0)
 	{
@@ -66,27 +66,26 @@ uint64_t zbrckanost(uint64_t x)
     return zbrckanost;
 }
 
-uint64_t generiraj_dobar_broj(uint64_t velicina_grupe)
+uint64_t generiraj_dobar_broj()
 {
-	uint64_t najbolji_broj, broj, z, i;
-	uint64_t najbolja_zbrckanost;
-	broj = daj_novi_slucajan_prosti_broj(&p);
-		z = zbrckanost (broj); //neka pocetna referentna vrijednost
-		najbolja_zbrckanost=z; //kako je ovdje najbolja zbrckanost=0
-		najbolji_broj = broj;
-	for(i=1;i<velicina_grupe;i++) 
+	uint64_t najbolji_broj = 0, novi_broj;
+    uint64_t najbolja_zbrckanost = 0, z;
+    uint64_t i, velicina_grupe = 1000;
+    //sto je velicina grupe veca, to dulje traje izvrsavanje programa
+
+	for(i = 0; i < velicina_grupe; ++i)
 	{
-		broj = daj_novi_slucajan_prosti_broj(&p);
-		z = zbrckanost (broj);
-		if(z<najbolja_zbrckanost)
+		novi_broj = daj_novi_slucajan_prosti_broj(&p);
+		z = zbrckanost(novi_broj);
+
+		if(z > najbolja_zbrckanost)
 		{
 			najbolja_zbrckanost = z;
-			najbolji_broj = broj;
+			najbolji_broj = novi_broj;
 		}
 	}
 	return najbolji_broj;
 }
-
 
 uint64_t procijeni_velicinu_grupe()
 {
@@ -116,7 +115,6 @@ int main(int argc, char *argv[])
 	inicijaliziraj_generator (&p, 0);
     uint64_t broj, broj_ispisa = 0;
     time_t t = time(NULL);
-
     while(broj_ispisa < 10)
 	{
         broj = generiraj_dobar_broj();
