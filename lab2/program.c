@@ -80,8 +80,8 @@ uint64_t zbrckanost(uint64_t x)
 
 uint64_t generiraj_dobar_broj(uint64_t velicina_grupe, struct gmp_pomocno p)
 {
-	uint64_t najbolji_broj = 0, novi_broj;
-    uint64_t najbolja_zbrckanost = 0, z;
+	 
+    uint64_t najbolja_zbrckanost = 0, z, i, najbolji_broj = 0, novi_broj;;
     
     
 
@@ -103,7 +103,7 @@ uint64_t procijeni_velicinu_grupe()
 {	struct gmp_pomocno p;
     inicijaliziraj_generator(&p, 0);
 	uint64_t M = 1000;
-	uint64_t SEKUNDI = 6;
+	uint64_t SEKUNDI = 5;
 	time_t t = time(NULL);
 	uint64_t k = 0, i,broj,brojeva_u_sekundi, velicina_grupe = 1;
 
@@ -118,7 +118,7 @@ uint64_t procijeni_velicinu_grupe()
 		}
 	}
 	brojeva_u_sekundi = k * M / SEKUNDI;
-	velicina_grupe = brojeva_u_sekundi * 2.5;
+	velicina_grupe = brojeva_u_sekundi / 2.5;
 	obrisi_generator(&p);
     return velicina_grupe;
 }
@@ -156,8 +156,8 @@ void izadi_iz_KO(int i)
 void *rad_dretva (void *I_D)
 {
     struct gmp_pomocno p;
-    inicijaliziraj_generator(&p,*ID);
     int *ID = I_D;
+	inicijaliziraj_generator(&p,*ID);
     uint64_t broj;
     
     do {
@@ -197,8 +197,8 @@ void *nerad_dretva (void *I_D)
 int main(int argc, char *argv[])
 {
 	int i, j;
+	int ID_radne_dretve[3], ID_neradne_dretve[3];
     pthread_t rad_dretve[3], nerad_dretve[3];
-    int ID_radne_dretve[3], ID_neradne_dretve[3];
     velicina_grupe = procijeni_velicinu_grupe();
 
     for (i = 0; i < 3; i++) {
